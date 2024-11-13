@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ứng Dụng Giao Diện</title>
+  <style>
+    /* Cấu trúc container chung */
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    /* Đặt các cột (textbox và datagrids) */
+    .left-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 60%;
+    }
+
+    /* Cấu trúc cho các datagrids */
+    .datagrid {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .datagrid th, .datagrid td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    /* Cấu trúc cho textbox */
+    .textbox {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    /* Cấu trúc cho thanh công cụ bên phải */
+    .right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      width: 30%;
+    }
+
+    .right-panel button {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* Menu ẩn */
+    .menu {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .menu a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .menu a:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Panel bên trái chứa 2 datagrids và textbox -->
+    <div class="left-panel">
+      <input type="text" class="textbox" placeholder="Nhập dữ liệu tại đây" id="textbox">
+
+      <table class="datagrid" id="datagrid1">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Tuổi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Nguyễn Văn A</td>
+            <td>25</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Trần Thị B</td>
+            <td>30</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="datagrid" id="datagrid2">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Địa chỉ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Hà Nội</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Hồ Chí Minh</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Panel bên phải chứa danh sách nút bấm -->
+    <div class="right-panel">
+      <button onclick="toggleMenu(event)">Hiển thị Menu</button>
+      
+      <!-- Menu ẩn -->
+      <div id="menu" class="menu">
+        <a href="#" onclick="alert('Chức năng 1')">Chức năng 1</a>
+        <a href="#" onclick="alert('Chức năng 2')">Chức năng 2</a>
+        <a href="#" onclick="alert('Chức năng 3')">Chức năng 3</a>
+        <a href="#" onclick="alert('Chức năng 4')">Chức năng 4</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Hàm để toggle (hiện/ẩn) menu khi bấm nút
+    function toggleMenu(event) {
+      const menu = document.getElementById('menu');
+      const isVisible = menu.style.display === 'block';
+
+      // Ẩn menu nếu đang hiển thị, và ngược lại
+      menu.style.display = isVisible ? 'none' : 'block';
+
+      // Ngăn sự kiện bấm nút lan ra (ví dụ: tránh đóng menu khi click vào button)
+      event.stopPropagation();
+    }
+
+    // Đóng menu khi click vào vùng ngoài menu
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('menu');
+      if (!menu.contains(event.target) && event.target.tagName !== 'BUTTON') {
+        menu.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
